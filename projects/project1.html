@@ -1,35 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Project 1 – Play the Game</title>
+  <meta charset="UTF-8">
+  <title>Number Guessing Game – Lili Bzy</title>
   <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+  <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+  <style>
+    .game-container {
+      max-width: 600px;
+      margin: 5rem auto;
+      padding: 2rem;
+      background: #f9f9f9;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.08);
+    }
+    input, button {
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      cursor: pointer;
+      background-color: #111;
+      color: white;
+      transition: background-color 0.2s ease-in-out;
+    }
+    button:hover {
+      background-color: #333;
+    }
+    .output {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      color: #333;
+    }
+  </style>
 </head>
 <body>
-  <main class="project-page">
-    <h1>Python Game: Guess the Number</h1>
-    <p>Try to guess the number between 1 and 100!</p>
-    <div id="game">
-      <input type="number" id="guess" placeholder="Enter your guess">
-      <button onclick="checkGuess()">Submit</button>
-      <p id="feedback"></p>
-    </div>
-    <a href="../index.html">← Back to Homepage</a>
-  </main>
+  <div class="game-container">
+    <h1>🎯 Guess the Number</h1>
+    <p>I'm thinking of a number between 1 and 10. You have 3 attempts.</p>
 
-  <script>
-    const secretNumber = Math.floor(Math.random() * 100) + 1;
-    function checkGuess() {
-      const guess = Number(document.getElementById('guess').value);
-      const feedback = document.getElementById('feedback');
-      if (guess === secretNumber) {
-        feedback.textContent = "🎉 Correct! You guessed it!";
-      } else if (guess < secretNumber) {
-        feedback.textContent = "Too low. Try again.";
-      } else {
-        feedback.textContent = "Too high. Try again.";
-      }
-    }
-  </script>
+    <input type="number" id="guess" min="1" max="10" placeholder="Enter your guess" />
+    <button id="submit">Submit Guess</button>
+    <button id="restart">Restart Game</button>
+
+    <div id="output" class="output"></div>
+  </div>
+
+  <py-script>
+from js import document
+import random
+
+number = random.randint(1, 10)
+tries = 3
+
+def update_output(message):
+    document.getElementById("output").innerText = message
+
+def handle_guess(event=None):
+    global tries, number
+    try:
+        guess = int(document.getElementById("guess").value)
+    except:
+        update_output("🚫 Please enter a valid number.")
+        return
+
+    if guess < 1 or guess > 10:
+        update_output("🚫 Number out of range. Try again.")
+        return
+
+    if guess == number:
+        update_output("🎉 You win! The number was " + str(number))
+        tries = 0
+    else:
+        tries -= 1
+        hint = "too high" if guess > number else "too low"
+        if tries > 0:
+            update_output(f"❌ Your guess is {hint}. {tries} attempts left.")
+        else:
+            update_output(f"💀 Game Over. The number was {number}.")
+
+def restart_game(event=None):
+    global number, tries
+    number = random.randint(1, 10)
+    tries = 3
+    update_output("🔁 Game restarted. Try again!")
+
+document.getElementById("submit").addEventListener("click", handle_guess)
+document.getElementById("restart").addEventListener("click", restart_game)
+  </py-script>
 </body>
 </html>
