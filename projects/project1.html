@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="../styles.css" />
   <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
   <script defer src="https://pyscript.net/latest/pyscript.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
     .game-container {
       max-width: 600px;
@@ -17,19 +16,13 @@
       border-radius: 8px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     }
-    .game-container h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
     #output {
       background: #fff;
       border: 1px solid #ccc;
       padding: 1rem;
-      margin-top: 1rem;
       height: 250px;
       overflow-y: auto;
       font-family: monospace;
-      font-size: 0.95rem;
       white-space: pre-wrap;
     }
     py-terminal {
@@ -37,25 +30,26 @@
     }
   </style>
 </head>
-
 <body>
   <header class="hero">
     <div class="hero-content">
       <h1>Guess the Number</h1>
-      <p>A Python game you can play right in your browser.</p>
-      <a href="https://lilibzy.github.io/GitHub-Public-Projects/"> Return Home →</a>
+      <p>A Python game you can play in your browser.</p>
+      <a href="../index.html">← Back to Home</a>
     </div>
   </header>
 
   <main class="game-container">
     <h2>Try to guess the number!</h2>
+    <div id="output"></div>
     <py-script>
+from pyscript import Element
 import random
 
 output = Element("output")
 
-def print_msg(message):
-    output.write(message + "\n")
+def print_msg(msg):
+    output.write(msg + "\n")
 
 def guessing_game():
     num = random.randint(1, 10)
@@ -63,9 +57,13 @@ def guessing_game():
     print_msg("🎯 I'm thinking of a number between 1 and 10. You have 3 attempts.")
 
     while tries > 0:
-        guess = int(prompt("Enter your guess (1–10):"))
+        guess = input("Enter your guess (1–10):")
+        if not guess.isdigit():
+            print_msg("🚫 Please enter a valid number.")
+            continue
+        guess = int(guess)
         if not 1 <= guess <= 10:
-            print_msg("🚫 Out of range. Try again.")
+            print_msg("🚫 Number out of range. Try again.")
             continue
 
         if guess == num:
@@ -79,7 +77,7 @@ def guessing_game():
     else:
         print_msg(f"💀 Game Over. The correct number was {num}.")
 
-    replay = prompt("🔁 Play again? (Y/N):").strip().lower()
+    replay = input("🔁 Play again? (Y/N):").strip().lower()
     if replay in ("y", "yes"):
         print_msg("Restarting...\n")
         guessing_game()
@@ -88,7 +86,6 @@ def guessing_game():
 
 guessing_game()
     </py-script>
-    <div id="output"></div>
   </main>
 
   <footer>
