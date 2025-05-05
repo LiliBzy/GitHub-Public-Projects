@@ -28,20 +28,22 @@
     py-terminal {
       display: none;
     }
-    .game-container {
-  max-width: 600px;
-  margin: 4rem auto;
-  padding: 2rem;
-  background: #f7f7f7;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  font-family: inherit;
-  color: inherit;
-}
+    .projects-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        justify-content: center;
+        padding: 2rem;
+        }
 
-.game-container h2 {
-  text-align: center;
-}
+    .game-container {
+    flex: 1 1 300px;
+    max-width: 500px;
+    }
+
+    .game-container h2 {
+    text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -53,16 +55,27 @@
     </div>
   </header>
 
-  <main class="game-container">
-    <h2>My First Project</h2>
-    <h2>Try to guess the number!</h2>
-    <div style="text-align: center; margin: 1rem 0;">
+  <main class="projects-wrapper">
+    <section class="game-container">
+      <h2>My First Project</h2>
+      <h3>Try to guess the number!</h3>
+      <div style="text-align: center; margin: 1rem 0;">
         <p>Launch the interactive Python notebook:</p>
         <a href="https://mybinder.org/v2/gh/LiliBzy/GitHub-Public-Projects/live_website?urlpath=%2Fdoc%2Ftree%2Fprojects%2F01_My_first_Python_Project_GuessingGame.ipynb" target="_blank">
           <img src="https://mybinder.org/badge_logo.svg" alt="Launch Binder" style="height: 40px;">
         </a>
         <p>Created May 2025</p>
       </div>
+    </section>
+  
+    <section class="game-container">
+      <h2>My Second Project</h2>
+      <h3>Coming soon!</h3>
+      <div style="text-align: center; margin: 1rem 0;">
+        <p>This is a placeholder for another Python project.</p>
+        <p>Stay tuned for updates!</p>
+      </div>
+    </section>
   </main>
 
   <footer>
