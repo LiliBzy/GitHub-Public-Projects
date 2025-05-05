@@ -1,0 +1,1 @@
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/LiliBzy/GitHub-Public-Projects/live_website?urlpath=%2Fdoc%2Ftree%2Fprojects%2F01_My_first_Python_Project_GuessingGame.ipynb)

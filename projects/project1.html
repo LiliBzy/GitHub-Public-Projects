@@ -40,52 +40,10 @@
   </header>
 
   <main class="game-container">
-    <h2>Try to guess the number!</h2>
-    <div id="output"></div>
-    <py-script>
-from pyscript import Element
-import random
 
-output = Element("output")
+        <h2>Try to guess the number!</h2>
+        <iframe height="500px" width="100%" src="https://replit.com/@YourUsername/GuessTheNumber?embed=true" frameborder="no" allowfullscreen></iframe>
 
-def print_msg(msg):
-    output.write(msg + "\n")
-
-def guessing_game():
-    num = random.randint(1, 10)
-    tries = 3
-    print_msg("🎯 I'm thinking of a number between 1 and 10. You have 3 attempts.")
-
-    while tries > 0:
-        guess = input("Enter your guess (1–10):")
-        if not guess.isdigit():
-            print_msg("🚫 Please enter a valid number.")
-            continue
-        guess = int(guess)
-        if not 1 <= guess <= 10:
-            print_msg("🚫 Number out of range. Try again.")
-            continue
-
-        if guess == num:
-            print_msg("🎉 You win!")
-            break
-
-        tries -= 1
-        hint = "too high" if guess > num else "too low"
-        print_msg(f"❌ Your guess is {hint}. {tries} attempts left.")
-
-    else:
-        print_msg(f"💀 Game Over. The correct number was {num}.")
-
-    replay = input("🔁 Play again? (Y/N):").strip().lower()
-    if replay in ("y", "yes"):
-        print_msg("Restarting...\n")
-        guessing_game()
-    else:
-        print_msg("👋 Thanks for playing!")
-
-guessing_game()
-    </py-script>
   </main>
 
   <footer>
